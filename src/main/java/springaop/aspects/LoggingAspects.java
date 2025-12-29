@@ -14,8 +14,8 @@ public class LoggingAspects {
 
 
     //  @Before("execution(* trackPackage(..))")
-//    @Before("execution(* springaop.services.impl.ShipmentServiceImpl.orderPackage(..))")
-    @Before("execution(* springaop.services.impl.*.*(..))")
+    //    @Before("execution(* springaop.services.impl.ShipmentServiceImpl.orderPackage(..))")
+    @Before("getServiceFolder()")
     public void beforeOrderPackage(JoinPoint joinPoint) {
         log.info("Before orderPackage called from LoggingAspects kind : {}",
                 joinPoint.getKind());
@@ -39,6 +39,10 @@ public class LoggingAspects {
     //Creating a custom pointCut that can be reused again which is stored inside a variable
     @Pointcut("@annotation(org.springframework.transaction.annotation.Transactional)")
     public void transactionalPointCut() {
+    }
+
+    @Pointcut("execution(* springaop.services.impl.*(..))")
+    public void getServiceFolder() {
     }
 
 }
